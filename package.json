@@ -1,0 +1,14 @@
+{
+  "name": "tinyapp",
+  "version": "1.0.0",
+  "description": "TinyApp project",
+  "main": "TinyApp.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Nik Malhotra",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
