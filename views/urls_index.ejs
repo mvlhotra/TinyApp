@@ -21,9 +21,11 @@
   <ul style="display:flex; flex-direction: column; list-style:none; max-width: 600px;">
     <% for(url in urls){ %>
     <li style="padding: 0.5rem;">
-      <strong><%= url %></strong>: <%= urls[url] %>
-      <form style="display:inline;" method="POST" action="/urls/<%=url%>/delete">
-        <button class="btn btn-danger" style="float:right;">Delete 🗑️</button></form>
+      <strong><%= url %></strong> → <%= urls[url] %>
+      <form style="float:right;">
+        <button type="submit" formmethod="GET" formaction="/urls/<%=url%>" class="btn btn-dark">Edit ✏️</button>
+        <button type="submit" formmethod="POST" formaction="/urls/<%=url%>/delete" class="btn btn-danger">Delete
+          🗑️</button></form>
     </li>
     <%}%>
   </ul>

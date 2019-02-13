@@ -12,13 +12,18 @@
 </head>
 
 <header>
-  <% include ./partials/_header %>
-  <p><a href="#">Create New TinyURL</a></p>
+  <!--<% include ./partials/_header %>-->
+  <h2>ShortURL: <strong><%=shortURL %></strong></h2>
 </header>
 
 <body style="font-size:20px; padding:50px;">
-  <strong>TinyURL for <%=longURL %> </strong>
-  <p><%=shortURL %></p>
+  <form class="form-inline" action="/urls/<%=shortURL%>" method="POST">
+    <div class="form-group mb-2">
+      <input class="form-control" type="text" name="longURL" value="<%=longURL%>" style="width: 300px; margin: 1em">
+      <button type="submit" class="btn btn-warning">Update</button>
+    </div>
+  </form>
+
 </body>
 
 </html>
