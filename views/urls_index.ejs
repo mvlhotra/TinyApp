@@ -18,9 +18,13 @@
 
 <body style="font-size:20px; padding:50px;">
   <h2>My URLS</h2>
-  <ul>
+  <ul style="display:flex; flex-direction: column; list-style:none; max-width: 600px;">
     <% for(url in urls){ %>
-    <li><strong><%= url %></strong>: <%= urls[url] %></li>
+    <li style="padding: 0.5rem;">
+      <strong><%= url %></strong>: <%= urls[url] %>
+      <form style="display:inline;" method="POST" action="/urls/<%=url%>/delete">
+        <button class="btn btn-danger" style="float:right;">Delete 🗑️</button></form>
+    </li>
     <%}%>
   </ul>
 </body>
