@@ -1,15 +1,14 @@
 <h1>TinyApp</h1>
-<%if(username !== undefined){%>
-<h3>Logged in as: <%=username%></h3>
+
+<%if(user !== undefined){%>
+<h3>Logged in as: <%=user.email%></h3>
 <form method="POST" action="/logout"><button type="submit" class="btn btn-dark">Log Out</button></form>
 <%} else {%>
-
-<form class="form-inline" action="/login" method="POST">
-  <div class="form-group mb-2">
-    <input class="form-control" type="text" name="username" placeholder="username" style="width: 300px; margin: 1em">
-    <button type="submit" class="btn btn-dark">Log In</button>
-  </div>
-  <%}%>
+<form>
+  <button type="submit" formmethod="GET" formaction="/login" class="btn btn-dark">Login</button> |
+  <button type="submit" formmethod="GET" formaction="/register" class="btn btn-dark">Register</button>
+</form>
+<%}%>
 
 
 
