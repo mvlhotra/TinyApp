@@ -13,10 +13,11 @@
 
 <header>
   <% include ./partials/_header %>
-  <h2>ShortURL: <strong><%=shortURL %></strong></h2>
 </header>
+<%if(longURL !== undefined){%>
 
 <body style="font-size:20px; padding:50px;">
+  <h2>ShortURL: <strong><%=shortURL %></strong></h2>
   <form class="form-inline" action="/urls/<%=shortURL%>" method="POST">
     <div class="form-group mb-2">
       <label for="longURL">URL:</label>
@@ -24,6 +25,11 @@
       <button type="submit" class="btn btn-warning">Update</button>
     </div>
   </form>
+  <%} else if (user !== undefined) {%>
+  <h2><strong>Error:</strong> Link not found.</h2>
+  <%} else {%>
+  <h2><strong>Error:</strong>You are currently not logged in. If you are the owner of this link, please Login.</h2>
+  <%}%>
 
 </body>
 

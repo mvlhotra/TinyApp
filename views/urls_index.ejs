@@ -17,16 +17,20 @@
 </header>
 
 <body style="font-size:20px; padding:50px;">
+  <% if( user !== undefined ){ %>
   <h2>My URLS</h2>
   <ul style="display:flex; flex-direction: column; list-style:none; max-width: 600px;">
     <% for(url in urls){ %>
     <li style="padding: 0.5rem;">
-      <strong><%= url %></strong> → <%= urls[url] %>
+      <strong><%= url %></strong> → <%= urls[url].longURL %>
       <form style="float:right;">
         <button type="submit" formmethod="GET" formaction="/urls/<%=url%>" class="btn btn-dark">Edit ✏️</button>
         <button type="submit" formmethod="POST" formaction="/urls/<%=url%>/delete" class="btn btn-danger">Delete
           🗑️</button></form>
     </li>
+    <%}%>
+  <%} else {%>
+    <h2>You are not logged in. Please <strong>Login</strong> or <strong>Register.</strong></h2>
     <%}%>
   </ul>
 </body>
