@@ -2,6 +2,8 @@ const express = require('express');
 
 const cookieParser = require('cookie-parser');
 
+const bcrypt = require('bcrypt');
+
 const app = express();
 
 const PORT = 8080; // default port 8080
@@ -16,9 +18,7 @@ const urlDatabase = {
   XnXnxx: { longURL: 'https://oilers.nhl.com', userID: 'n1kh17' }
 };
 
-const users = {
-  n1kh17: { id: 'n1kh17', email: 'nmal@me.com', password: 'coff33' }
-};
+const users = {};
 
 const genStr = () => {
   return Math.floor((1 + Math.random()) * 0x1000000)
@@ -30,7 +30,7 @@ const getUserId = (email, pass) => {
   let id = '';
   const userObj = Object.entries(users);
   userObj.forEach(userId => {
-    if (userId[1].email === email && userId[1].password === pass) {
+    if (userId[1].email === email && bcrypt.compareSync(pass, userId[1].password)) {
       id = userId[0];
     }
   });
@@ -51,7 +51,7 @@ const userCheck = (func, userObj, email, pass) => {
   }
   if (func === 'login') {
     try {
-      if (userDetails.email === email && userDetails.password === pass) {
+      if (userDetails.email === email && bcrypt.compareSync(pass, userDetails.password)) {
         status = 200;
       } else {
         status = 403;
@@ -177,7 +177,7 @@ app.post('/register', (req, res) => {
   if (status !== 200) {
     res.status(status).send(`${status} Error. Click your browser's Back button.`);
   } else {
-    users[userRandomID] = { id: userRandomID, email: req.body.email, password: req.body.password };
+    users[userRandomID] = { id: userRandomID, email: req.body.email, password: bcrypt.hashSync(req.body.password, 10) };
     res.cookie('user_id', userRandomID);
     res.redirect('/urls');
   }
