@@ -22,6 +22,7 @@ Tinyapp uses a number of open source projects to work properly:
 - bcrypt
 - body-parser
 - cookie-session
+- method-override
 
 ## Getting Started
 
@@ -30,5 +31,5 @@ Tinyapp uses a number of open source projects to work properly:
 
 ## Todos
 - Implement the unique visitors function
-- Keep track of all unique visitors
+- Keep track of all unique visits by date and 
 
