@@ -13,8 +13,8 @@
       <a class="nav-item nav-link active" href="/urls">Home <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="/urls/new">New Link</a>
       <%if(user !== undefined){%>
-      <a class="nav-item nav-link" href="/logout">Logout</a>
-      <a class="nav-item nav-link disabled">Logged in as: <%=user.email%> </a>
+      <a id="logged-in-as" class="nav-item nav-link disabled">Logged in as: <%=user.email%> </a>
+      <form><button type="submit" formmethod="POST" formaction="/logout" class="btn btn-dark">Logout</button></form>
       <%} else {%>
       <a class="nav-item nav-link" href="/login">Login</a>
       <a class="nav-item nav-link" href="/register">Register</a>
@@ -22,3 +22,35 @@
     </div>
   </div>
 </nav>
+<style>
+    html {
+      height: 100%;
+    }
+    body {
+      height: 100%;
+      margin: 0;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background: #8e9eab;
+      background: -webkit-linear-gradient(to right, #eef2f3, #8e9eab);
+      background: linear-gradient(to right, #eef2f3, #8e9eab);
+    }
+
+    a {
+      color: #202020;
+    }
+    #logged-in-as{
+      color: #080808;
+    }
+    .main{
+      margin-top: 4rem;
+      padding: 1rem;
+      background-color: rgba(255,255,255,0.5);
+    }
+    .main h2{
+      text-align: center;
+    }
+    ul{
+      list-style:none;
+    }
+  </style>

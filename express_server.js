@@ -31,33 +31,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(cookieSession({ name: 'session', keys: ['12345'] }));
 
-// initialization of url database and users database.
+// initialization of url database and users database 1 link in there for demo purposes only.
 const urlDatabase = {
   b6UTxQ: {
     longURL: 'https://www.tsn.ca',
     userID: 'aJ48lW',
     dCreated: '1-28-2018',
-    hits: 1,
-    unique: 1
-  },
-  i3BoGr: {
-    longURL: 'https://www.google.ca',
-    userID: 'aJ48lW',
-    dCreated: '1-1-2018',
-    hits: 1,
-    unique: 1
-  },
-  iiiIII: {
-    longURL: 'https://www.neopets.com',
-    userID: 'n1kh17',
-    dCreated: '2-13-2019',
-    hits: 1,
-    unique: 1
-  },
-  XnXnxx: {
-    longURL: 'https://oilers.nhl.com',
-    userID: 'n1kh17',
-    dCreated: '1-10-2019',
     hits: 1,
     unique: 1
   }
@@ -92,6 +71,11 @@ const getUserId = (email, pass) => {
     }
   });
   return id;
+};
+
+// delete URL helper function
+const deleteURL = shortURL => {
+  delete urlDatabase[shortURL];
 };
 
 //  status routing function for log in and registration pages.
@@ -209,7 +193,7 @@ app.get('/u/:shortURL', (req, res) => {
     urlDatabase[req.params.shortURL].hits += 1;
     res.redirect(longURL);
   } else {
-    res.redirect(`/urls/`); // TODO: add new 404 page with HTML and redirect user to this.
+    res.redirect(`/urls/`);
   }
 });
 
@@ -219,7 +203,7 @@ app.get('/u/:shortURL', (req, res) => {
 app.post('/urls/:shortURL/delete', (req, res) => {
   const filteredList = urlsForUser(req.session.user_id);
   if (filteredList[req.params.shortURL] !== undefined) {
-    delete urlDatabase[req.params.shortURL];
+    deleteURL(req.params.shortURL);
   }
   res.redirect('/urls');
 });
@@ -227,7 +211,7 @@ app.post('/urls/:shortURL/delete', (req, res) => {
 app.get('/urls/:shortURL/delete', (req, res) => {
   const filteredList = urlsForUser(req.session.user_id);
   if (filteredList[req.params.shortURL] !== undefined) {
-    delete urlDatabase[req.params.shortURL];
+    deleteURL(req.params.shortURL);
     res.redirect(`/urls/`);
   } else {
     res.redirect(`/urls/${req.params.shortURL}`);

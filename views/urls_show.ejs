@@ -14,25 +14,36 @@
 <header>
   <% include ./partials/_header %>
 </header>
-<%if(longURL !== undefined){%>
 
 <body style="font-size:20px; padding:50px;">
-  <p><strong>ShortURL:</strong> <%=shortURL %></p>
-  <p><strong>Hits: </strong> <%=filteredList[shortURL].hits%></p>
-  <p><strong>Unique Visitors: </strong><%=filteredList[shortURL].unique%></p>
-  <p><strong>Date Created: </strong> <%=filteredList[shortURL].dCrea%></p>
-  <form class="form-inline" action="/urls/<%=shortURL%>" method="POST">
-    <div class="form-group mb-2">
-      <label for="longURL">URL:</label>
-      <input class="form-control" type="text" name="longURL" value="<%=longURL%>" style="width: 300px; margin: 1em">
-      <button type="submit" class="btn btn-warning">Update</button>
+  <div class="container main">
+    <%if(longURL !== undefined){%>
+
+    <h2>Manage Link</h2>
+    <div class="row">
+      <div class="col-sm-6">
+        <p><strong>ShortURL:</strong> <%=shortURL %></p>
+        <p><strong>Hits: </strong> <%=filteredList[shortURL].hits%></p>
+        <p><strong>Unique Visitors: </strong><%=filteredList[shortURL].unique%></p>
+        <p><strong>Date Created: </strong> <%=filteredList[shortURL].dCrea%></p>
+      </div>
+      <div class="col-sm-6">
+        <form class="form-inline" action="/urls/<%=shortURL%>" method="POST">
+          <div class="form-group mb-2">
+            <label for="longURL">URL:</label>
+            <input class="form-control" type="text" name="longURL" value="<%=longURL%>"
+              style="width: 300px; margin: 1em">
+            <button type="submit" class="btn btn-dark">Update</button>
+          </div>
+      </div>
     </div>
-  </form>
-  <%} else if (user !== undefined) {%>
-  <h2><strong>Error:</strong> Link not found for the current logged-in user.</h2>
-  <%} else {%>
-  <h2><strong>Error:</strong>You are currently not logged in. If you are the owner of this link, please Login.</h2>
-  <%}%>
+    </form>
+    <%} else if (user !== undefined) {%>
+    <h2><strong>Error:</strong> Link not found for the current logged-in user.</h2>
+    <%} else {%>
+    <h2><strong>Error:</strong>You are currently not logged in. If you are the owner of this link, please Login.</h2>
+    <%}%>
+  </div>
 
 </body>
 

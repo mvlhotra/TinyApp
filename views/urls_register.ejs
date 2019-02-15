@@ -12,18 +12,20 @@
   <title>Register for TinyApp </title>
 </head>
 
+<% include partials/_header %>
+
 <body style="font-size:20px; padding:50px;">
-
-  <% include partials/_header %>
-
-  <form class="form-block" action="/register" method="POST">
-    <div class="form-group mb-2" style="margin-top: 1em">
-      <input class="form-control" type="email" name="email" placeholder="Email"
-        style="width: 300px; margin-bottom: 1em">
-      <input class="form-control" type="password" name="password" placeholder="Password"
-        style="width: 300px; margin-bottom: 1em">
-      <button type="submit" class="btn btn-dark">Sign Up</button>
-    </div>
+  <div class="container main">
+    <h2>Register - New Account</h2>
+    <form class="form-block" action="/register" method="POST">
+      <div class="form-group mb-2" style="margin-top: 1em">
+        <input class="form-control" type="email" name="email" placeholder="Email"
+          style="width: 300px; margin-bottom: 1em">
+        <input class="form-control" type="password" name="password" placeholder="Password"
+          style="width: 300px; margin-bottom: 1em">
+        <button type="submit" class="btn btn-dark">Sign Up</button>
+      </div>
+  </div>
 </body>
 
 </html>

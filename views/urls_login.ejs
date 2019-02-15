@@ -12,17 +12,20 @@
   <title>New URL - TinyApp Example</title>
 </head>
 
-<body style="font-size:20px; padding:50px;">
+<% include partials/_header %>
 
-  <% include partials/_header %>
-  <form class="form-block" action="/login" method="POST">
-    <div class="form-group mb-2">
-      <label for="password">Email:</label>
-      <input class="form-control" type="email" name="email" style="width: 300px; margin-bottom: 1em">
-      <label for="password">Password:</label>
-      <input class="form-control" type="password" name="password" style="width: 300px; margin-bottom: 1em">
-      <button type="submit" class="btn btn-dark">Login</button>
-    </div>
+<body style="font-size:20px; padding:50px;">
+  <div class="container main">
+    <h2>Login - Welcome Back</h2>
+    <form class="form-block" action="/login" method="POST">
+      <div class="form-group mb-2">
+        <label for="password">Email:</label>
+        <input class="form-control" type="email" name="email" style="width: 300px; margin-bottom: 1em">
+        <label for="password">Password:</label>
+        <input class="form-control" type="password" name="password" style="width: 300px; margin-bottom: 1em">
+        <button type="submit" class="btn btn-dark">Login</button>
+      </div>
+  </div>
 </body>
 
 </html>
