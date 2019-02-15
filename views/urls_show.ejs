@@ -17,7 +17,9 @@
 <%if(longURL !== undefined){%>
 
 <body style="font-size:20px; padding:50px;">
-  <h2>ShortURL: <strong><%=shortURL %></strong></h2>
+  <p><strong>ShortURL:</strong> <%=shortURL %></p>
+  <p><strong>Hits: </strong> <%=filteredList[shortURL].hits%></p>
+  <p><strong>Date Created: </strong> <%=filteredList[shortURL].dCrea%></p>
   <form class="form-inline" action="/urls/<%=shortURL%>" method="POST">
     <div class="form-group mb-2">
       <label for="longURL">URL:</label>
@@ -26,7 +28,7 @@
     </div>
   </form>
   <%} else if (user !== undefined) {%>
-  <h2><strong>Error:</strong> Link not found.</h2>
+  <h2><strong>Error:</strong> Link not found for the current logged-in user.</h2>
   <%} else {%>
   <h2><strong>Error:</strong>You are currently not logged in. If you are the owner of this link, please Login.</h2>
   <%}%>

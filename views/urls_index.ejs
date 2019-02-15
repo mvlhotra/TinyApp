@@ -8,6 +8,30 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <style>
+    html {
+      height: 100%;
+    }
+
+    body {
+      height: 100%;
+      margin: 0;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background: #8e9eab;
+      /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #eef2f3, #8e9eab);
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #eef2f3, #8e9eab);
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+    }
+
+    a {
+      color: #686868;
+    }
+  </style>
   <title>TinyApp</title>
 </head>
 
@@ -22,7 +46,8 @@
   <ul style="display:flex; flex-direction: column; list-style:none; max-width: 600px;">
     <% for(url in urls){ %>
     <li style="padding: 0.5rem;">
-      <strong><%= url %></strong> → <%= urls[url].longURL %>
+      <strong><%= url %></strong> → <%= urls[url].longURL %><strong>Created:</strong><%= urls[url].dCrea %>
+      <strong>Hits: </strong><%=urls[url].hits%>
       <form style="float:right;">
         <button type="submit" formmethod="GET" formaction="/urls/<%=url%>" class="btn btn-dark">Edit ✏️</button>
         <button type="submit" formmethod="POST" formaction="/urls/<%=url%>/delete" class="btn btn-danger">Delete
