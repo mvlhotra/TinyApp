@@ -37,17 +37,17 @@
 
 <header>
   <% include ./partials/_header %>
-  <p><a href="/urls/new">Create New TinyURL</a></p>
 </header>
 
 <body style="font-size:20px; padding:50px;">
   <% if( user !== undefined ){ %>
   <h2>My URLS</h2>
-  <ul style="display:flex; flex-direction: column; list-style:none; max-width: 600px;">
+  <ul style="display:flex; flex-direction: column; list-style:none; max-width: 1000px">
     <% for(url in urls){ %>
     <li style="padding: 0.5rem;">
       <strong><%= url %></strong> → <%= urls[url].longURL %><strong>Created:</strong><%= urls[url].dCrea %>
       <strong>Hits: </strong><%=urls[url].hits%>
+      <strong>Unique Visitors:</strong><%=urls[url].unique%>
       <form style="float:right;">
         <button type="submit" formmethod="GET" formaction="/urls/<%=url%>" class="btn btn-dark">Edit ✏️</button>
         <button type="submit" formmethod="POST" formaction="/urls/<%=url%>/delete" class="btn btn-danger">Delete

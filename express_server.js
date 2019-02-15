@@ -7,6 +7,10 @@
  *        TinyApp is a full stack web application built with Node and Express
  *            that allows users to shorten long URLs (à la bit.ly).
  *
+ *                             Summary of Features:
+ *    Navigate to actual link contents by navigating to the /u/(shortURL) page.
+ *   Create and maintain your own links by registering for the TinyApp service
+ *
  * =============================================================================
  */
 
@@ -29,10 +33,34 @@ app.use(cookieSession({ name: 'session', keys: ['12345'] }));
 
 // initialization of url database and users database.
 const urlDatabase = {
-  b6UTxQ: { longURL: 'https://www.tsn.ca', userID: 'aJ48lW', dCreated: '1-28-2018', hits: 1 },
-  i3BoGr: { longURL: 'https://www.google.ca', userID: 'aJ48lW', dCreated: '1-1-2018', hits: 1 },
-  iiiIII: { longURL: 'https://www.neopets.com', userID: 'n1kh17', dCreated: '2-13-2019', hits: 1 },
-  XnXnxx: { longURL: 'https://oilers.nhl.com', userID: 'n1kh17', dCreated: '1-10-2019', hits: 1 }
+  b6UTxQ: {
+    longURL: 'https://www.tsn.ca',
+    userID: 'aJ48lW',
+    dCreated: '1-28-2018',
+    hits: 1,
+    unique: 1
+  },
+  i3BoGr: {
+    longURL: 'https://www.google.ca',
+    userID: 'aJ48lW',
+    dCreated: '1-1-2018',
+    hits: 1,
+    unique: 1
+  },
+  iiiIII: {
+    longURL: 'https://www.neopets.com',
+    userID: 'n1kh17',
+    dCreated: '2-13-2019',
+    hits: 1,
+    unique: 1
+  },
+  XnXnxx: {
+    longURL: 'https://oilers.nhl.com',
+    userID: 'n1kh17',
+    dCreated: '1-10-2019',
+    hits: 1,
+    unique: 1
+  }
 };
 
 const users = {};
@@ -60,7 +88,6 @@ const getUserId = (email, pass) => {
   const userObj = Object.entries(users);
   userObj.forEach(userId => {
     if (userId[1].email === email && bcrypt.compareSync(pass, userId[1].password)) {
-      // eslint-disable-next-line prefer-destructuring
       id = userId[0];
     }
   });
@@ -144,7 +171,8 @@ app.post('/urls', (req, res) => {
       longURL: req.body.longURL,
       userID: req.session.user_id,
       dCrea: getCurrentDate(),
-      hits: 0
+      hits: 0,
+      unique: 0
     };
     res.redirect(`/urls/${genURL}`);
   }

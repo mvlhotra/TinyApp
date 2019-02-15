@@ -1,13 +1,24 @@
-<a href="/urls">
-  <h1>TinyApp</h1>
-</a>
-
-<%if(user !== undefined){%>
-<h3>Logged in as: <%=user.email%></h3>
-<form method="POST" action="/logout"><button type="submit" class="btn btn-dark">Log Out</button></form>
-<%} else {%>
-<form>
-  <button type="submit" formmethod="GET" formaction="/login" class="btn btn-dark">Login</button> |
-  <button type="submit" formmethod="GET" formaction="/register" class="btn btn-dark">Register</button>
-</form>
-<%}%>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <img src="https://cdn4.iconfinder.com/data/icons/web-links/512/41-512.png" width="40" height="40"
+    class="d-inline-block align-top" />
+  <a class="navbar-brand" href="/urls">
+    <h2>TinyApp</h2>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="/urls">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="/urls/new">New Link</a>
+      <%if(user !== undefined){%>
+      <a class="nav-item nav-link" href="/logout">Logout</a>
+      <a class="nav-item nav-link disabled">Logged in as: <%=user.email%> </a>
+      <%} else {%>
+      <a class="nav-item nav-link" href="/login">Login</a>
+      <a class="nav-item nav-link" href="/register">Register</a>
+      <%}%>
+    </div>
+  </div>
+</nav>

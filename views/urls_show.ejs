@@ -19,6 +19,7 @@
 <body style="font-size:20px; padding:50px;">
   <p><strong>ShortURL:</strong> <%=shortURL %></p>
   <p><strong>Hits: </strong> <%=filteredList[shortURL].hits%></p>
+  <p><strong>Unique Visitors: </strong><%=filteredList[shortURL].unique%></p>
   <p><strong>Date Created: </strong> <%=filteredList[shortURL].dCrea%></p>
   <form class="form-inline" action="/urls/<%=shortURL%>" method="POST">
     <div class="form-group mb-2">
