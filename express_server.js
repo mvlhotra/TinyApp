@@ -44,10 +44,10 @@ const urlDatabase = {
     unique: 1
   }
 };
-
+//  initialization of registered users object and the visit log to support link analytics (!)
 const users = {};
 
-const sitesVisited = [];
+const visitLog = {};
 
 // helper functions
 //    generate random string for user ID and shortURL
@@ -81,9 +81,21 @@ const getUserId = (email, pass) => {
 // delete URL helper function
 const deleteURL = shortURL => {
   delete urlDatabase[shortURL];
+  if (visitLog[shortURL] !== undefined) {
+    delete visitLog[shortURL];
+  }
 };
 
 // main functions
+
+//  visit tracker helper function
+const visitTracking = (shortURL, visitorId) => {
+  if (visitLog[shortURL] === undefined) {
+    visitLog[shortURL] = [[visitorId, getCurrentDate()]];
+  } else {
+    visitLog[shortURL].push([visitorId, getCurrentDate()]);
+  }
+};
 
 //  status routing function for log in and registration pages.
 const userCheck = (func, userObj, email, pass) => {
@@ -181,7 +193,8 @@ app.get(`/urls/:shortURL`, (req, res) => {
     shortURL: req.params.shortURL,
     longURL,
     filteredList,
-    user: users[req.session.user_id]
+    user: users[req.session.user_id],
+    visits: visitLog[req.params.shortURL]
   };
   res.render('urls_show', templateVars);
 });
@@ -200,13 +213,18 @@ app.get('/u/:shortURL', (req, res) => {
     urlDatabase[req.params.shortURL].hits += 1;
     //  unique visitor logic. session cookie holds an array of the current visitor's shortened links that they've visited.
     //  If it's the first time visiting a link, create the array with the shortened URL. else, add the link to the list if they haven't visited yet.
-    if (req.session.visitor_id === undefined) {
-      req.session.visitor_id = [req.params.shortURL];
+    if (req.session.links_visited === undefined) {
+      req.session.links_visited = [req.params.shortURL];
       urlDatabase[req.params.shortURL].unique += 1;
-    } else if (!req.session.visitor_id.includes(req.params.shortURL)) {
-      req.session.visitor_id.push(req.params.shortURL);
+    } else if (!req.session.links_visited.includes(req.params.shortURL)) {
+      req.session.links_visited.push(req.params.shortURL);
       urlDatabase[req.params.shortURL].unique += 1;
     }
+    // create a visitor id cookie if it's undefined
+    if (req.session.visitor_id === undefined) {
+      req.session.visitor_id = genStr();
+    }
+    visitTracking(req.params.shortURL, req.session.visitor_id);
     res.redirect(longURL);
   } else {
     res.redirect(`/urls/`);
