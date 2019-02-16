@@ -38,11 +38,19 @@
       </div>
     </div>
     </form>
+    <h2>Visit Log</h2>
+    <div class="col-sm-12 visit-log">
+      <%if (visits !== undefined){%>
+      <%visits.forEach(visit =>{ %>
+      <p><strong>Visited By: </strong> <%=visit[0]%> <strong>On: </strong><%=visit[1]%></p>
+      <%});%>
+      <%}%>
+    </div>
     <%} else if (user !== undefined) {%>
-    <h2><strong>Error:</strong> Link not found for the current logged-in user.</h2>
-    <%} else {%>
-    <h2><strong>Error:</strong>You are currently not logged in. If you are the owner of this link, please Login.</h2>
-    <%}%>
+      <h2><strong>Error:</strong> Link not found for the current logged-in user.</h2>
+      <%} else {%>
+      <h2><strong>Error:</strong>You are currently not logged in. If you are the owner of this link, please Login.</h2>
+      <%}%>
   </div>
 
 </body>
