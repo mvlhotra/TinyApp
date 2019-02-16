@@ -28,7 +28,7 @@
         <p><strong>Date Created: </strong> <%=filteredList[shortURL].dCrea%></p>
       </div>
       <div class="col-sm-6">
-        <form class="form-inline" action="/urls/<%=shortURL%>" method="POST">
+        <form class="form-inline" action="/urls/<%=shortURL%>?_method=PUT" method="POST">
           <div class="form-group mb-2">
             <label for="longURL">URL:</label>
             <input class="form-control" type="text" name="longURL" value="<%=longURL%>"

@@ -23,6 +23,8 @@ const bcrypt = require('bcrypt');
 
 const bodyParser = require('body-parser');
 
+const methodOverride = require('method-override');
+
 const app = express();
 
 const PORT = 8080;
@@ -30,6 +32,7 @@ const PORT = 8080;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(cookieSession({ name: 'session', keys: ['12345'] }));
+app.use(methodOverride('_method'));
 
 // initialization of url database and users database 1 link in there for demo purposes only.
 const urlDatabase = {
@@ -43,6 +46,8 @@ const urlDatabase = {
 };
 
 const users = {};
+
+const sitesVisited = [];
 
 // helper functions
 //    generate random string for user ID and shortURL
@@ -77,6 +82,8 @@ const getUserId = (email, pass) => {
 const deleteURL = shortURL => {
   delete urlDatabase[shortURL];
 };
+
+// main functions
 
 //  status routing function for log in and registration pages.
 const userCheck = (func, userObj, email, pass) => {
@@ -179,7 +186,7 @@ app.get(`/urls/:shortURL`, (req, res) => {
   res.render('urls_show', templateVars);
 });
 
-app.post(`/urls/:shortURL`, (req, res) => {
+app.put(`/urls/:shortURL`, (req, res) => {
   if (req.body.longURL !== undefined) {
     urlDatabase[req.params.shortURL].longURL = req.body.longURL;
   }
@@ -191,6 +198,15 @@ app.get('/u/:shortURL', (req, res) => {
   if (urlDatabase[req.params.shortURL] !== undefined) {
     const longURL = urlDatabase[req.params.shortURL].longURL;
     urlDatabase[req.params.shortURL].hits += 1;
+    //  unique visitor logic. session cookie holds an array of the current visitor's shortened links that they've visited.
+    //  If it's the first time visiting a link, create the array with the shortened URL. else, add the link to the list if they haven't visited yet.
+    if (req.session.visitor_id === undefined) {
+      req.session.visitor_id = [req.params.shortURL];
+      urlDatabase[req.params.shortURL].unique += 1;
+    } else if (!req.session.visitor_id.includes(req.params.shortURL)) {
+      req.session.visitor_id.push(req.params.shortURL);
+      urlDatabase[req.params.shortURL].unique += 1;
+    }
     res.redirect(longURL);
   } else {
     res.redirect(`/urls/`);
@@ -199,8 +215,8 @@ app.get('/u/:shortURL', (req, res) => {
 
 //  get and post methods for delete function
 //  initially, get method was not required, yet was added to handle requests that are manually entered in the address bar.
-//  Although code looks somewhat DRY, the redirection different for post and get.
-app.post('/urls/:shortURL/delete', (req, res) => {
+//  Although code looks somewhat DRY, the redirections are different for post and get.
+app.delete('/urls/:shortURL/delete', (req, res) => {
   const filteredList = urlsForUser(req.session.user_id);
   if (filteredList[req.params.shortURL] !== undefined) {
     deleteURL(req.params.shortURL);
