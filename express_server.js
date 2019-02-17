@@ -47,12 +47,7 @@ const urlDatabase = {
 //  initialization of registered users object and the visit log to support link analytics (!)
 const users = {};
 
-<<<<<<< HEAD
 const visitLog = {};
-=======
-const visitLog = {
-};
->>>>>>> eb615acc79ef26e2721c97969e5d320eff91ce49
 
 // helper functions
 //    generate random string for user ID and shortURL
@@ -93,21 +88,13 @@ const deleteURL = shortURL => {
 
 // main functions
 
-<<<<<<< HEAD
 //  visit tracker helper function
-=======
-//  visit tracker function.
->>>>>>> eb615acc79ef26e2721c97969e5d320eff91ce49
 const visitTracking = (shortURL, visitorId) => {
   if (visitLog[shortURL] === undefined) {
     visitLog[shortURL] = [[visitorId, getCurrentDate()]];
   } else {
     visitLog[shortURL].push([visitorId, getCurrentDate()]);
   }
-<<<<<<< HEAD
-=======
-  console.log(visitLog);
->>>>>>> eb615acc79ef26e2721c97969e5d320eff91ce49
 };
 
 //  status routing function for log in and registration pages.
